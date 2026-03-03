@@ -19,7 +19,7 @@ from style import aplicar_estilo
 
 # Configuração
 st.set_page_config(
-    page_title="Leonor - Análise Anti-ATS", 
+    page_title="Safira Digital - Análise Anti-ATS", 
     page_icon="🎯",
     layout="wide"
 )
@@ -76,7 +76,7 @@ if 'uso_count' not in st.session_state:
 
 # Sidebar
 with st.sidebar:
-    st.title("🎯 Leonor - Anti-ATS")
+    st.title("🎯 Safira Digital - Anti-ATS")
     st.caption("Modo demonstração (sem banco de dados)")
     
     st.markdown(
@@ -105,7 +105,7 @@ with st.sidebar:
     st.caption("🔧 Modo simplificado - Banco desativado")
 
 # Conteúdo principal
-st.title("🛡️ Leonor - Análise Anti-ATS (Modo Teste)")
+st.title("🛡️ Safira Digital - Análise Anti-ATS (Modo Teste)")
 st.markdown("Teste gratuito - 10 análises por sessão")
 st.divider()
 
