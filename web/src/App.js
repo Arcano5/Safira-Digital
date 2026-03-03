@@ -5,7 +5,6 @@ import logo from './logo.png';
 function App() {
   return (
     <div className="App">
-      {/* Navbar */}
       <nav className="navbar">
         <div className="nav-container">
           <img src={logo} alt="Safira Digital" className="logo" />
@@ -19,7 +18,7 @@ function App() {
                 href="https://safira-digital-antiats.streamlit.app" 
                 className="nav-button"
                 target="_blank"
-                rel="noreferrer"  {/* ← ADICIONADO */}
+                rel="noreferrer"
               >
                 🎯 Anti-ATS
               </a>
@@ -28,7 +27,6 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section id="home" className="hero">
         <div className="hero-content">
           <h1 className="hero-title">
@@ -46,7 +44,7 @@ function App() {
               href="https://safira-digital-antiats.streamlit.app" 
               className="btn-secondary"
               target="_blank"
-              rel="noreferrer"  {/* ← ADICIONADO */}
+              rel="noreferrer"
             >
               🎯 Testar Anti-ATS
             </a>
@@ -54,7 +52,6 @@ function App() {
         </div>
       </section>
 
-      {/* Serviços */}
       <section id="servicos" className="services">
         <h2 className="section-title">Nossos <span className="highlight">Serviços</span></h2>
         <div className="services-grid">
@@ -63,19 +60,16 @@ function App() {
             <h3>Consultoria para PMEs</h3>
             <p>Soluções personalizadas para pequenas e médias empresas crescerem com tecnologia</p>
           </div>
-
           <div className="service-card">
             <div className="service-icon">🎮</div>
             <h3>Jogos Educativos</h3>
             <p>Aprenda gestão e tecnologia de forma interativa e divertida</p>
           </div>
-
           <div className="service-card">
             <div className="service-icon">📱</div>
             <h3>Cursos Online</h3>
             <p>Plataforma EAD com cursos práticos e direto ao ponto</p>
           </div>
-
           <div className="service-card">
             <div className="service-icon">🎯</div>
             <h3>Ferramenta Anti-ATS</h3>
@@ -84,18 +78,16 @@ function App() {
               href="https://safira-digital-antiats.streamlit.app" 
               className="card-link"
               target="_blank"
-              rel="noreferrer"  {/* ← ADICIONADO */}
+              rel="noreferrer"
             >
               Testar grátis →
             </a>
           </div>
-
           <div className="service-card">
             <div className="service-icon">👥</div>
             <h3>Treinamentos In Company</h3>
             <p>Cursos presenciais sob medida para sua equipe</p>
           </div>
-
           <div className="service-card">
             <div className="service-icon">📊</div>
             <h3>Gestão Empresarial</h3>
@@ -104,7 +96,6 @@ function App() {
         </div>
       </section>
 
-      {/* Sobre */}
       <section id="sobre" className="about">
         <div className="about-container">
           <div className="about-content">
@@ -141,7 +132,6 @@ function App() {
         </div>
       </section>
 
-      {/* Contato / Redes Sociais */}
       <section id="contato" className="contact">
         <h2 className="section-title">Conecte-se <span className="highlight">Conosco</span></h2>
         <p className="contact-subtitle">Acompanhe nosso trabalho e tire dúvidas</p>
@@ -151,7 +141,7 @@ function App() {
             href="https://wa.me/seunumero" 
             className="social-card whatsapp" 
             target="_blank"
-            rel="noreferrer"  {/* ← ADICIONADO */}
+            rel="noreferrer"
           >
             <div className="social-icon">📱</div>
             <div className="social-info">
@@ -159,12 +149,11 @@ function App() {
               <p>Atendimento rápido</p>
             </div>
           </a>
-
           <a 
             href="https://linkedin.com/company/safira-digital" 
             className="social-card linkedin" 
             target="_blank"
-            rel="noreferrer"  {/* ← ADICIONADO */}
+            rel="noreferrer"
           >
             <div className="social-icon">💼</div>
             <div className="social-info">
@@ -172,12 +161,11 @@ function App() {
               <p>Conteúdo profissional</p>
             </div>
           </a>
-
           <a 
             href="https://youtube.com/@safira-digital" 
             className="social-card youtube" 
             target="_blank"
-            rel="noreferrer"  {/* ← ADICIONADO */}
+            rel="noreferrer"
           >
             <div className="social-icon">▶️</div>
             <div className="social-info">
@@ -185,12 +173,11 @@ function App() {
               <p>Aulas e dicas</p>
             </div>
           </a>
-
           <a 
             href="https://udemy.com/instructor/safira-digital" 
             className="social-card udemy" 
             target="_blank"
-            rel="noreferrer"  {/* ← ADICIONADO */}
+            rel="noreferrer"
           >
             <div className="social-icon">📚</div>
             <div className="social-info">
@@ -201,7 +188,6 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="footer">
         <div className="footer-container">
           <div className="footer-info">
