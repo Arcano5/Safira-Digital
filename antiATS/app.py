@@ -25,12 +25,6 @@ st.set_page_config(
 )
 
 # Estilo
-cores_site = {
-    'primaria': '#0066cc',
-    'fundo': '#ffffff',
-    'texto': '#333333',
-    'fonte': 'Inter, sans-serif'
-}
 aplicar_estilo(cores_site)
 
 # Carregar segredos
