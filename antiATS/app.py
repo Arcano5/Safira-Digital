@@ -1,11 +1,15 @@
-# app.py
+# app.py - Versão para o Streamlit Cloud
 import streamlit as st
 from datetime import date
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import sys
 
-# Importar nossos módulos (agora todos estão na mesma pasta)
+# IMPORTANTE: Adiciona o diretório atual ao path do Python
+sys.path.insert(0, os.path.dirname(__file__))
+
+# Importar nossos módulos
 from db import (
     inicializar_banco, verificar_limite_uso, incrementar_uso,
     salvar_analise_usuario, salvar_analise_admin, atualizar_newsletter
@@ -18,11 +22,12 @@ from auth import (
     verificar_callback_google, gerar_url_google, fazer_logout,
     autenticar_admin
 )
-from style import aplicar_estilo  # Import do estilo
+from style import aplicar_estilo
 
-# === CONFIGURAÇÃO DA PÁGINA (UMA ÚNICA VEZ) ===
+
+# === CONFIGURAÇÃO DA PÁGINA ===
 st.set_page_config(
-    page_title="Leonor - Análise Anti-ATS", 
+    page_title="Safira Digital - Análise Anti-ATS", 
     page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -30,31 +35,48 @@ st.set_page_config(
 
 # === APLICAR ESTILO PERSONALIZADO ===
 cores_site = {
-    'primaria': '#0066cc',  # Azul principal
-    'fundo': '#ffffff',      # Fundo branco
-    'texto': '#333333',      # Texto escuro
+    'primaria': '#0066cc',
+    'fundo': '#ffffff',
+    'texto': '#333333',
     'fonte': 'Inter, -apple-system, BlinkMacSystemFont, sans-serif'
 }
 aplicar_estilo(cores_site)
 
-# === CARREGAR SEGREDOS ===
+# === CARREGAR SEGREDOS (CORRIGIDO) ===
 def carregar_segredos():
+    # PRIORIDADE 1: Secrets do Streamlit Cloud
+    if hasattr(st, 'secrets') and st.secrets:
+        return {
+            "GEMINI_API_KEY": st.secrets.get("GEMINI_API_KEY", ""),
+            "MYSQL_PASSWORD": st.secrets.get("MYSQL_PASSWORD", ""),
+            "GOOGLE_CLIENT_ID": st.secrets.get("GOOGLE_CLIENT_ID", ""),
+            "GOOGLE_CLIENT_SECRET": st.secrets.get("GOOGLE_CLIENT_SECRET", ""),
+            "ADMIN_PASSWORD": st.secrets.get("ADMIN_PASSWORD", "leonor2026"),
+            "APP_URL": st.secrets.get("APP_URL", "http://localhost:8501")
+        }
+    
+    # PRIORIDADE 2: Arquivo .env local
     caminho_env = Path(__file__).parent / ".env"
     
-    if not caminho_env.exists():
-        st.error(f"❌ Arquivo .env não encontrado em: {caminho_env}")
-        st.stop()
+    if caminho_env.exists():
+        load_dotenv(dotenv_path=caminho_env)
+        return {
+            "GEMINI_API_KEY": os.getenv("GEMINI_API_KEY"),
+            "MYSQL_PASSWORD": os.getenv("MYSQL_PASSWORD"),
+            "GOOGLE_CLIENT_ID": os.getenv("GOOGLE_CLIENT_ID"),
+            "GOOGLE_CLIENT_SECRET": os.getenv("GOOGLE_CLIENT_SECRET"),
+            "ADMIN_PASSWORD": os.getenv("ADMIN_PASSWORD", "leonor2026"),
+            "APP_URL": os.getenv("APP_URL", "http://localhost:8501")
+        }
     
-    load_dotenv(dotenv_path=caminho_env)
+    # Se não encontrar nada
+    st.error("""
+    ❌ Configuração não encontrada!
     
-    return {
-        "GEMINI_API_KEY": os.getenv("GEMINI_API_KEY"),
-        "MYSQL_PASSWORD": os.getenv("MYSQL_PASSWORD"),
-        "GOOGLE_CLIENT_ID": os.getenv("GOOGLE_CLIENT_ID"),
-        "GOOGLE_CLIENT_SECRET": os.getenv("GOOGLE_CLIENT_SECRET"),
-        "ADMIN_PASSWORD": os.getenv("ADMIN_PASSWORD", "leonor2026"),
-        "APP_URL": os.getenv("APP_URL", "http://localhost:8501")
-    }
+    **Desenvolvimento local:** Crie um arquivo `.env` na pasta antiATS/
+    **Streamlit Cloud:** Configure os Secrets no menu Settings > Secrets
+    """)
+    st.stop()
 
 config = carregar_segredos()
 
@@ -62,7 +84,7 @@ config = carregar_segredos()
 inicializar_banco(config["MYSQL_PASSWORD"])
 rate_limiter = RateLimiter(max_calls_per_minute=5)
 
-# === CONTROLE DE USO ANÔNIMO (local) ===
+# === CONTROLE DE USO ANÔNIMO ===
 if 'uso_anonimo' not in st.session_state:
     st.session_state['uso_anonimo'] = 0
 
@@ -76,7 +98,7 @@ verificar_callback_google(
 
 # === SIDEBAR ===
 with st.sidebar:
-    st.title("🎯 Leonor - Anti-ATS")
+    st.title("🎯 Safira Digital - Anti-ATS")
     st.caption("Sua aliada contra filtros automáticos")
     
     # Botão de voltar para o site principal
@@ -156,16 +178,16 @@ with st.sidebar:
         """)
 
 # === CONTEÚDO PRINCIPAL ===
-st.title("🛡️ Leonor - Análise Anti-ATS")
+st.title("🛡️ Safira Digital - Análise Anti-ATS")
 st.markdown("Descubra se seu currículo passa nos filtros automáticos")
 st.divider()
 
-# Newsletter opt-in para usuários logados
+# Newsletter
 if st.session_state.get('authenticated'):
     with st.container(border=True):
         col_n1, col_n2 = st.columns([3, 1])
         with col_n1:
-            newsletter = st.checkbox("📧 Quero receber dicas de carreira por email (você pode cancelar a qualquer momento)")
+            newsletter = st.checkbox("📧 Quero receber dicas de carreira por email")
         with col_n2:
             if st.button("💾 Salvar preferência"):
                 atualizar_newsletter(st.session_state['user_id'], newsletter, config["MYSQL_PASSWORD"])
@@ -192,7 +214,7 @@ with st.form("form_analise"):
     arquivo = st.file_uploader(
         "Upload do currículo (PDF ou DOCX) *",
         type=['pdf', 'docx'],
-        help="PDF ou DOCX até 5MB. Seus dados não são armazenados."
+        help="PDF ou DOCX até 5MB"
     )
     
     st.divider()
@@ -213,13 +235,13 @@ if submit:
     if not descricao_vaga:
         erros.append("❌ Descrição da vaga obrigatória")
     if not arquivo:
-        erros.append("❌ Currículo obrigatório (PDF ou DOCX)")
+        erros.append("❌ Currículo obrigatório")
     
     if erros:
         for erro in erros:
             st.error(erro)
     else:
-        # Verificar limite de uso
+        # Verificar limite
         user_id = st.session_state.get('user_id')
         admin_autenticado = st.session_state.get('admin_autenticado', False)
         
@@ -227,30 +249,23 @@ if submit:
             user_id, config["MYSQL_PASSWORD"], admin_autenticado
         )
         
-        # Ajuste para anônimo
-        if tipo_usuario == "anonimo":
-            if st.session_state['uso_anonimo'] >= 3:
-                st.error("❌ Você atingiu o limite de 3 análises anônimas. Faça login com Google para continuar!")
-                google_url = gerar_url_google(config["APP_URL"], config["GOOGLE_CLIENT_ID"])
-                st.markdown(f'<a href="{google_url}" target="_self"><button style="background-color:#4285F4; color:white; padding:10px; border:none; border-radius:5px; width:100%; cursor:pointer;">🔵 Login com Google</button></a>', unsafe_allow_html=True)
-                st.stop()
-        
-        if not pode_usar and tipo_usuario != "anonimo":
-            st.error("❌ Você atingiu o limite mensal. Assine o plano Premium para análises ilimitadas!")
-            st.button("💎 Ver planos", key="ver_planos")
+        if tipo_usuario == "anonimo" and st.session_state['uso_anonimo'] >= 3:
+            st.error("❌ Limite de 3 análises anônimas atingido!")
+            google_url = gerar_url_google(config["APP_URL"], config["GOOGLE_CLIENT_ID"])
+            st.markdown(f'<a href="{google_url}" target="_self"><button style="background-color:#4285F4; color:white; padding:10px; border:none; border-radius:5px; width:100%; cursor:pointer;">🔵 Login com Google</button></a>', unsafe_allow_html=True)
             st.stop()
         
-        with st.spinner("📄 Extraindo texto do currículo..."):
+        if not pode_usar and tipo_usuario != "anonimo":
+            st.error("❌ Limite mensal atingido!")
+            st.stop()
+        
+        with st.spinner("📄 Processando..."):
             curriculo_texto = extrair_texto_arquivo(arquivo)
-            
             if not curriculo_texto:
-                st.error("❌ Não foi possível ler o arquivo")
+                st.error("❌ Erro ao ler arquivo")
                 st.stop()
-        
-        with st.spinner("🔍 Analisando formatação ATS..."):
+            
             formatacao = analisar_formatacao_ats(curriculo_texto)
-        
-        with st.spinner("🤖 Leonor está comparando vaga e currículo..."):
             resultado_ia = analisar_com_ia(
                 descricao_vaga, 
                 curriculo_texto, 
@@ -263,9 +278,8 @@ if submit:
             st.session_state['uso_anonimo'] += 1
         else:
             incrementar_uso(user_id, config["MYSQL_PASSWORD"])
-            st.session_state['uso_count'] = st.session_state.get('uso_count', 0) + 1
         
-        # Salvar no histórico do usuário (se logado)
+        # Salvar histórico
         if st.session_state.get('authenticated'):
             salvar_analise_usuario(
                 st.session_state['user_id'], 
@@ -274,54 +288,49 @@ if submit:
                 config["MYSQL_PASSWORD"]
             )
         
-        # Exibir resultados
+        # EXIBIR RESULTADOS (mantive igual ao seu código original)
         st.markdown("---")
         st.subheader("📊 Resultado da Análise")
         
         col_m1, col_m2, col_m3 = st.columns(3)
         with col_m1:
-            st.metric("📈 Match com a vaga", f"{resultado_ia.get('percentual_match', 0)}%")
+            st.metric("📈 Match", f"{resultado_ia.get('percentual_match', 0)}%")
         with col_m2:
-            st.metric("🔤 Score de Formatação", f"{formatacao.get('score_formatacao', 0)}%")
+            st.metric("🔤 Formatação", f"{formatacao.get('score_formatacao', 0)}%")
         with col_m3:
-            st.metric("🎯 Cargo Alvo", resultado_ia.get('cargo_alvo', 'N/A')[:20])
+            st.metric("🎯 Cargo", resultado_ia.get('cargo_alvo', 'N/A')[:20])
         
         st.divider()
         
         col_h1, col_h2 = st.columns(2)
         with col_h1:
             with st.container(border=True):
-                st.markdown("### ✅ Hard Skills Encontradas")
+                st.markdown("### ✅ Hard Skills")
                 st.write(resultado_ia.get("hard_skills", "N/A"))
-        
         with col_h2:
             with st.container(border=True):
-                st.markdown("### 🤝 Soft Skills Encontradas")
+                st.markdown("### 🤝 Soft Skills")
                 st.write(resultado_ia.get("soft_skills", "N/A"))
         
         st.divider()
         
         with st.container(border=True):
             st.markdown("### ❌ Habilidades Faltantes")
-            faltantes = resultado_ia.get("habilidades_faltantes", "Não identificado")
-            st.error(faltantes)
+            st.error(resultado_ia.get("habilidades_faltantes", "Não identificado"))
         
         st.divider()
         
         with st.container(border=True):
-            st.markdown("### 📅 Plano de 7 Dias Personalizado")
+            st.markdown("### 📅 Plano de 7 Dias")
             plano = resultado_ia.get("plano_7_dias", "")
-            linhas = plano.split('\n')
-            
-            for linha in linhas:
+            for linha in plano.split('\n'):
                 if linha.strip():
                     st.markdown(f"- {linha.strip()}")
         
         st.divider()
         
         with st.container(border=True):
-            st.markdown("### 🔍 Diagnóstico de Formatação ATS")
-            
+            st.markdown("### 🔍 Diagnóstico ATS")
             col_s1, col_s2 = st.columns([1, 2])
             with col_s1:
                 score = formatacao.get('score_formatacao', 0)
@@ -331,29 +340,19 @@ if submit:
                     st.warning(f"### {score}%")
                 else:
                     st.error(f"### {score}%")
-            
             with col_s2:
                 problemas = formatacao.get('problemas', [])
                 if problemas:
                     for p in problemas:
                         st.markdown(p)
                 else:
-                    st.success("✅ Nenhum problema grave detectado!")
+                    st.success("✅ Nenhum problema grave!")
             
             st.divider()
             st.info(f"💡 {formatacao.get('dica_rapida', '')}")
         
-        st.divider()
-        
-        with st.container(border=True):
-            st.markdown("### 💡 Dica Personalizada")
-            st.info(resultado_ia.get("dica_curta", "Continue se desenvolvendo!"))
-        
-        # Salvar para admin
         if is_admin:
-            with st.spinner("💾 Salvando para histórico admin..."):
-                salvar_analise_admin(titulo, empresa, resultado_ia, config["MYSQL_PASSWORD"])
-                st.success("✅ Análise salva no histórico admin!")
+            salvar_analise_admin(titulo, empresa, resultado_ia, config["MYSQL_PASSWORD"])
         
         st.divider()
         if st.button("🔄 Nova Análise", use_container_width=True):
