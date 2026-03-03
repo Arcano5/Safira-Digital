@@ -16,10 +16,10 @@ function App() {
             <li><a href="#contato" className="nav-link">Contato</a></li>
             <li>
               <a 
-                href="https://safira-digital-antiats.streamlit.app/" 
+                href="https://safira-digital-antiats.streamlit.app" 
                 className="nav-button"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"  {/* ← ADICIONADO */}
               >
                 🎯 Anti-ATS
               </a>
@@ -35,7 +35,7 @@ function App() {
             Safira <span className="highlight">Digital</span>
           </h1>
           <p className="hero-subtitle">
-            Consultoria que ensina, ensino que transforma.
+            "consultoria que ensina, ensino que transforma"
           </p>
           <p className="hero-description">
             Soluções inteligentes para impulsionar seu negócio
@@ -43,9 +43,10 @@ function App() {
           <div className="hero-buttons">
             <a href="#servicos" className="btn-primary">Conheça nossos serviços</a>
             <a 
-              href="https://seuapp.streamlit.app" 
+              href="https://safira-digital-antiats.streamlit.app" 
               className="btn-secondary"
               target="_blank"
+              rel="noreferrer"  {/* ← ADICIONADO */}
             >
               🎯 Testar Anti-ATS
             </a>
@@ -80,9 +81,10 @@ function App() {
             <h3>Ferramenta Anti-ATS</h3>
             <p>Otimize seu currículo para passar nos filtros automáticos</p>
             <a 
-              href="https://seuapp.streamlit.app" 
+              href="https://safira-digital-antiats.streamlit.app" 
               className="card-link"
               target="_blank"
+              rel="noreferrer"  {/* ← ADICIONADO */}
             >
               Testar grátis →
             </a>
@@ -103,7 +105,6 @@ function App() {
       </section>
 
       {/* Sobre */}
-            {/* Sobre */}
       <section id="sobre" className="about">
         <div className="about-container">
           <div className="about-content">
@@ -146,7 +147,12 @@ function App() {
         <p className="contact-subtitle">Acompanhe nosso trabalho e tire dúvidas</p>
         
         <div className="social-grid">
-          <a href="https://wa.me/+5511992095721" className="social-card whatsapp" target="_blank">
+          <a 
+            href="https://wa.me/seunumero" 
+            className="social-card whatsapp" 
+            target="_blank"
+            rel="noreferrer"  {/* ← ADICIONADO */}
+          >
             <div className="social-icon">📱</div>
             <div className="social-info">
               <h4>WhatsApp</h4>
@@ -154,7 +160,12 @@ function App() {
             </div>
           </a>
 
-          <a href="https://linkedin.com/company/safira-digital" className="social-card linkedin" target="_blank">
+          <a 
+            href="https://linkedin.com/company/safira-digital" 
+            className="social-card linkedin" 
+            target="_blank"
+            rel="noreferrer"  {/* ← ADICIONADO */}
+          >
             <div className="social-icon">💼</div>
             <div className="social-info">
               <h4>LinkedIn</h4>
@@ -162,7 +173,12 @@ function App() {
             </div>
           </a>
 
-          <a href="https://youtube.com/@safira-digital" className="social-card youtube" target="_blank">
+          <a 
+            href="https://youtube.com/@safira-digital" 
+            className="social-card youtube" 
+            target="_blank"
+            rel="noreferrer"  {/* ← ADICIONADO */}
+          >
             <div className="social-icon">▶️</div>
             <div className="social-info">
               <h4>YouTube</h4>
@@ -170,7 +186,12 @@ function App() {
             </div>
           </a>
 
-          <a href="https://udemy.com/instructor/safira-digital" className="social-card udemy" target="_blank">
+          <a 
+            href="https://udemy.com/instructor/safira-digital" 
+            className="social-card udemy" 
+            target="_blank"
+            rel="noreferrer"  {/* ← ADICIONADO */}
+          >
             <div className="social-icon">📚</div>
             <div className="social-info">
               <h4>Udemy</h4>
