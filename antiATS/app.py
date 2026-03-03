@@ -5,7 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-# Importar nossos módulos
+# Importar nossos módulos (agora todos estão na mesma pasta)
 from db import (
     inicializar_banco, verificar_limite_uso, incrementar_uso,
     salvar_analise_usuario, salvar_analise_admin, atualizar_newsletter
@@ -14,23 +14,21 @@ from ia_services import (
     RateLimiter, extrair_texto_arquivo, analisar_formatacao_ats,
     analisar_com_ia
 )
-from antiATS.auth import (
+from auth import (
     verificar_callback_google, gerar_url_google, fazer_logout,
     autenticar_admin
 )
-# app.py (modificado)
-import streamlit as st
-from style import aplicar_estilo
+from style import aplicar_estilo  # Import do estilo
 
-# Configuração da página
+# === CONFIGURAÇÃO DA PÁGINA (UMA ÚNICA VEZ) ===
 st.set_page_config(
-    page_title="Leonor - Análise Anti-ATS",
+    page_title="Leonor - Análise Anti-ATS", 
     page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# APLICAR ESTILO PERSONALIZADO (depois você substitui pelas cores do React)
+# === APLICAR ESTILO PERSONALIZADO ===
 cores_site = {
     'primaria': '#0066cc',  # Azul principal
     'fundo': '#ffffff',      # Fundo branco
@@ -39,22 +37,12 @@ cores_site = {
 }
 aplicar_estilo(cores_site)
 
-# Resto do seu código continua igual...
-
-# === CONFIGURAÇÃO INICIAL ===
-st.set_page_config(
-    page_title="Leonor - Análise Anti-ATS", 
-    page_icon="🎯",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
 # === CARREGAR SEGREDOS ===
 def carregar_segredos():
-    caminho_env = Path(__file__).parent / "Segredos.env"
+    caminho_env = Path(__file__).parent / ".env"
     
     if not caminho_env.exists():
-        st.error(f"❌ Arquivo Segredos.env não encontrado")
+        st.error(f"❌ Arquivo .env não encontrado em: {caminho_env}")
         st.stop()
     
     load_dotenv(dotenv_path=caminho_env)
@@ -90,6 +78,29 @@ verificar_callback_google(
 with st.sidebar:
     st.title("🎯 Leonor - Anti-ATS")
     st.caption("Sua aliada contra filtros automáticos")
+    
+    # Botão de voltar para o site principal
+    st.markdown(
+        f"""
+        <a href="/" target="_blank" style="
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            color: {cores_site['primaria']};
+            border: 2px solid {cores_site['primaria']};
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            width: 100%;
+            text-align: center;
+        ">
+            ⬅️ Voltar ao Portal Safira
+        </a>
+        <br>
+        """,
+        unsafe_allow_html=True
+    )
     
     # Status do usuário
     if st.session_state.get('authenticated'):
