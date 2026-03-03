@@ -90,22 +90,10 @@ with st.sidebar:
     st.caption("Análise Anti-ATS")
     
     # Botão de voltar
-    st.markdown(
+    st.sidebar.markdown(
         f"""
-        <a href="/" target="_blank" style="
-            display: block;
-            padding: 0.75rem;
-            background-color: transparent;
-            color: {cores_site['primaria']};
-            border: 2px solid {cores_site['primaria']};
-            border-radius: 8px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            transition: all 0.3s;
-        ">
-            ⬅️ Voltar ao Portal
+        <a href="/" target="_blank" class="botao-voltar">
+            ⬅️ Voltar ao Portal Safira
         </a>
         """,
         unsafe_allow_html=True
