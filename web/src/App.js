@@ -150,7 +150,7 @@ function App() {
             </div>
           </a>
           <a 
-            href="www.linkedin.com/in/leonildo-freitas-gomes-059a3627b" 
+            href="https://www.linkedin.com/in/leonildo-freitas-gomes-059a3627b" 
             className="social-card linkedin" 
             target="_blank"
             rel="noreferrer"
