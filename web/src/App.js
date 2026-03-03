@@ -103,32 +103,38 @@ function App() {
       </section>
 
       {/* Sobre */}
+            {/* Sobre */}
       <section id="sobre" className="about">
         <div className="about-container">
           <div className="about-content">
             <h2 className="section-title">Sobre a <span className="highlight">Safira Digital</span></h2>
             <p className="about-text">
-              Nascemos da paixão por tecnologia e educação. Nossa missão é 
-              democratizar o acesso a ferramentas e conhecimentos que 
-              transformam negócios e carreiras.
+              Estamos dando os primeiros passos com um propósito claro: 
+              democratizar o acesso a tecnologia e educação de qualidade 
+              para pequenas empresas e profissionais que querem se destacar.
             </p>
             <p className="about-text">
-              Com uma abordagem prática e humana, ajudamos PMEs a crescerem 
-              e profissionais a se destacarem no mercado.
+              Hoje somos uma empresa em construção, com muita vontade de 
+              aprender e ajudar. Nossas ferramentas estão sendo desenvolvidas 
+              com cuidado para oferecer soluções reais e acessíveis.
+            </p>
+            <p className="about-text highlight-text">
+              💡 Transparência é nosso valor: cada cliente, cada curso, 
+              cada conquista será comemorada aqui, com vocês.
             </p>
           </div>
           <div className="about-stats">
             <div className="stat">
-              <span className="stat-number">100+</span>
-              <span className="stat-label">Clientes Atendidos</span>
+              <span className="stat-number">Em breve</span>
+              <span className="stat-label">Nossos primeiros clientes</span>
             </div>
             <div className="stat">
-              <span className="stat-number">50+</span>
-              <span className="stat-label">Cursos Realizados</span>
+              <span className="stat-number">Em breve</span>
+              <span className="stat-label">Cursos e conteúdos</span>
             </div>
             <div className="stat">
               <span className="stat-number">100%</span>
-              <span className="stat-label">Compromisso</span>
+              <span className="stat-label">Compromisso com a verdade</span>
             </div>
           </div>
         </div>

@@ -482,3 +482,50 @@ section {
 .hero-content, .service-card, .about-container, .social-card {
   animation: fadeIn 1s ease-out;
 }
+/* ===== TEXTO DESTACADO NA SEÇÃO SOBRE ===== */
+.highlight-text {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  margin-top: 1.5rem;
+}
+
+/* ===== ABOUT STATS ATUALIZADO ===== */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem 1rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s;
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
