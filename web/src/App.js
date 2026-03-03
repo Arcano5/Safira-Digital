@@ -33,7 +33,7 @@ function App() {
             Safira <span className="highlight">Digital</span>
           </h1>
           <p className="hero-subtitle">
-            "consultoria que ensina, ensino que transforma"
+            Consultoria que ensina, ensino que transforma.
           </p>
           <p className="hero-description">
             Soluções inteligentes para impulsionar seu negócio
@@ -138,7 +138,7 @@ function App() {
         
         <div className="social-grid">
           <a 
-            href="https://wa.me/seunumero" 
+            href="https://wa.me/5511992095721" 
             className="social-card whatsapp" 
             target="_blank"
             rel="noreferrer"
@@ -150,7 +150,7 @@ function App() {
             </div>
           </a>
           <a 
-            href="https://linkedin.com/company/safira-digital" 
+            href="www.linkedin.com/in/leonildo-freitas-gomes-059a3627b" 
             className="social-card linkedin" 
             target="_blank"
             rel="noreferrer"
@@ -162,7 +162,7 @@ function App() {
             </div>
           </a>
           <a 
-            href="https://youtube.com/@safira-digital" 
+            href="https://www.youtube.com/channel/UCljQXHVm43eYcRefbpiW9xw" 
             className="social-card youtube" 
             target="_blank"
             rel="noreferrer"
@@ -174,7 +174,7 @@ function App() {
             </div>
           </a>
           <a 
-            href="https://udemy.com/instructor/safira-digital" 
+            href="https://www.udemy.com/teaching/?ref=teach_header" 
             className="social-card udemy" 
             target="_blank"
             rel="noreferrer"
