@@ -70,52 +70,113 @@ def extrair_texto_arquivo(arquivo):
         st.error("❌ Formato não suportado. Use PDF ou DOCX.")
         return ""
 
+# === FUNÇÃO DE FALLBACK PARA MATCH (NOVA VERSÃO) ===
+def calcular_match_fallback(vaga, curriculo):
+    """Versão melhorada para quando o Gemini não retorna o número"""
+    vaga_lower = vaga.lower()
+    curriculo_lower = curriculo.lower()
+    
+    # Palavras-chave comuns em vagas com pesos
+    keywords_peso = {
+        'conciliação': 3, 'conferência': 2, 'controle': 2,
+        'fluxo de caixa': 3, 'caixa': 2, 'financeiro': 2,
+        'excel': 2, 'planilhas': 2, 'planilha': 2,
+        'estoque': 2, 'atendimento': 2, 'cliente': 1,
+        'analítica': 2, 'análise': 1, 'prazos': 2, 'prazo': 1,
+        'organizado': 1, 'organizada': 1, 'resiliente': 1,
+        'processos': 1, 'sistema': 1, 'gestão': 1, 'operações': 1
+    }
+    
+    total_pontos = 0
+    pontos_obtidos = 0
+    
+    for keyword, peso in keywords_peso.items():
+        total_pontos += peso
+        if keyword in curriculo_lower:
+            pontos_obtidos += peso
+    
+    # Também verifica termos da vaga que aparecem no currículo
+    palavras_vaga = set(re.findall(r'\b[a-z]{4,}\b', vaga_lower))
+    palavras_curriculo = set(re.findall(r'\b[a-z]{4,}\b', curriculo_lower))
+    
+    if palavras_vaga:
+        # Adiciona pontos por palavras em comum (mas com peso menor)
+        palavras_comuns = palavras_vaga.intersection(palavras_curriculo)
+        pontos_obtidos += len(palavras_comuns) * 0.5
+        total_pontos += len(palavras_vaga) * 0.5
+    
+    if total_pontos > 0:
+        percentual = int((pontos_obtidos / total_pontos) * 100)
+        return max(0, min(100, percentual))
+    return 30  # fallback seguro
+
 # === ANÁLISE DE FORMATAÇÃO ATS ===
 def analisar_formatacao_ats(texto_curriculo):
     problemas = []
     acertos = []
     
-    secoes_necessarias = [
-        (r'experiência|experiencia|histórico|historico', "Experiência Profissional"),
-        (r'formação|formaçao|educação|educacao|acadêmico|academico', "Formação Acadêmica"),
-        (r'habilidades|competências|competencias|skills', "Habilidades")
-    ]
+    # 1. DETECTAR CAPSLOCK
+    palavras = texto_curriculo.split()
+    caps_words = [p for p in palavras if p.isupper() and len(p) > 3]
+    if caps_words:
+        problemas.append(f"❌ Evite usar CAPSLOCK em palavras: {', '.join(caps_words[:3])}")
     
-    for padrao, nome_secao in secoes_necessarias:
-        if re.search(padrao, texto_curriculo, re.IGNORECASE):
-            acertos.append(f"✅ Seção '{nome_secao}' encontrada")
-        else:
-            problemas.append(f"❌ Seção '{nome_secao}' não identificada")
+    # 2. DETECTAR COLUNAS/TABELAS
+    linhas = texto_curriculo.split('\n')
+    colunas_detectadas = 0
+    for linha in linhas[:20]:
+        if '\t' in linha or '  ' in linha:
+            partes = re.split(r'\s{2,}|\t', linha)
+            if len(partes) >= 2 and all(len(p.strip()) > 0 for p in partes):
+                colunas_detectadas += 1
+                if colunas_detectadas >= 2:
+                    problemas.append("❌ Formatação em colunas/tabela - ATS pode não ler corretamente")
+                    break
     
-    caracteres_problematicos = ['•', '►', '→', '▪', '‣', '♦']
+    # 3. DETECTAR ESTRUTURA FORA DE ORDEM
+    secoes_esperadas = ['resumo|objetivo', 'experiência', 'formação', 'habilidades']
+    posicoes = {}
+    for i, linha in enumerate(linhas[:30]):
+        linha_lower = linha.lower()
+        for secao in secoes_esperadas:
+            if re.search(secao, linha_lower) and secao not in posicoes:
+                posicoes[secao] = i
+    
+    if posicoes.get('experiência', 999) > posicoes.get('formação', 0):
+        problemas.append("⚠️ Experiência profissional deve vir antes da formação acadêmica")
+    
+    # 4. DETECTAR DATAS COMPLETAS
+    datas_completas = re.findall(r'\d{2}/\d{2}/\d{4}', texto_curriculo)
+    if datas_completas:
+        problemas.append("❌ Use apenas anos (ex: 2023) em vez de datas completas")
+    else:
+        acertos.append("✅ Datas em formato ano (recomendado)")
+    
+    # 5. DETECTAR OBJETIVO GENÉRICO
+    if re.search(r'objetivo.*aprender.*crescer.*oportunidade', texto_curriculo, re.IGNORECASE):
+        problemas.append("⚠️ Objetivo genérico detectado - personalize para a vaga")
+    
+    # 6. DETECTAR CARACTERES ESPECIAIS
+    caracteres_problematicos = ['•', '►', '→', '▪', '‣', '♦', '★', '☆', '✓']
     for char in caracteres_problematicos:
         if char in texto_curriculo:
             problemas.append(f"⚠️ Uso de caractere especial '{char}' - use hífen (-) simples")
             break
     
-    linhas = texto_curriculo.split('\n')
-    colunas_detectadas = 0
-    for linha in linhas[:20]:
-        if linha.count('\t') >= 2 or linha.count('    ') >= 2:
-            colunas_detectadas += 1
+    # Calcular score (mais rigoroso)
+    score = 100
+    score -= len(problemas) * 12
+    score = max(0, min(100, score))
     
-    if colunas_detectadas >= 3:
-        problemas.append("❌ Possível formatação em colunas - ATS pode não ler corretamente")
-    
-    datas_estranhas = re.findall(r'\b\d{2}/\d{2}/\d{4}\b', texto_curriculo)
-    if datas_estranhas:
-        problemas.append("⚠️ Use apenas anos (ex: 2023) em vez de datas completas")
-    else:
-        acertos.append("✅ Datas em formato ano (recomendado)")
-    
-    score = max(0, 100 - (len(problemas) * 15))
-    score = min(100, score)
+    # Se não houver problemas, dar 100% com elogio
+    if not problemas and score == 100:
+        acertos.append("✅ Excelente! Formatação compatível com ATS")
     
     return {
         "score_formatacao": score,
-        "problemas": problemas[:5],
+        "problemas": problemas[:7],
         "acertos": acertos[:3],
-        "dica_rapida": "Use formatação simples, sem colunas, com seções bem definidas."
+        "dica_rapida": "Use formatação simples, sem colunas/tabelas, com seções bem definidas na ordem correta."
     }
 
 # === ANÁLISE COMPARATIVA COM IA ===
@@ -214,8 +275,8 @@ CURRÍCULO:
                     match_num = int(numeros[0])
                     match_num = max(0, min(100, match_num))
                 else:
-                    # fallback inteligente baseado em interseção simples
-                    match_num = calcular_match_basico(vaga, curriculo)
+                    # Usando a nova função de fallback
+                    match_num = calcular_match_fallback(vaga, curriculo)
 
                 status.update(label="✅ Análise concluída!", state="complete")
 
@@ -235,7 +296,7 @@ CURRÍCULO:
                     "hard_skills": "Erro",
                     "soft_skills": "Erro",
                     "habilidades_faltantes": "Erro na comunicação",
-                    "percentual_match": calcular_match_basico(vaga, curriculo),
+                    "percentual_match": calcular_match_fallback(vaga, curriculo),
                     "cargo_alvo": "Erro",
                     "plano_7_dias": "Tente novamente"
                 }
@@ -244,19 +305,7 @@ CURRÍCULO:
         "hard_skills": "Erro",
         "soft_skills": "Erro",
         "habilidades_faltantes": "Erro",
-        "percentual_match": calcular_match_basico(vaga, curriculo),
+        "percentual_match": calcular_match_fallback(vaga, curriculo),
         "cargo_alvo": "Erro",
         "plano_7_dias": "Tente novamente"
     }
-
-def calcular_match_basico(vaga, curriculo):
-    vaga_set = set(re.findall(r'\w+', vaga.lower()))
-    curriculo_set = set(re.findall(r'\w+', curriculo.lower()))
-
-    if not vaga_set:
-        return 0
-
-    intersecao = vaga_set.intersection(curriculo_set)
-    percentual = int((len(intersecao) / len(vaga_set)) * 100)
-
-    return max(0, min(100, percentual))
