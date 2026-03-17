@@ -1,0 +1,194 @@
+================================================================
+SAFIRA DIGITAL — TERMOS DE SERVIÇO
+Última atualização: março de 2026
+================================================================
+ 
+Ao acessar ou utilizar qualquer serviço da Safira Digital, o
+usuário declara ter lido, compreendido e concordado com os
+presentes Termos de Serviço. Caso não concorde, não utilize
+os serviços.
+ 
+----------------------------------------------------------------
+1. IDENTIFICAÇÃO
+----------------------------------------------------------------
+ 
+Razão Social: Safira Digital (MEI)
+CNPJ: 64.845.683/0001-60
+Localização: Itaquaquecetuba, SP — Brasil
+E-mail: LeonildoGomes.Dev@outlook.com
+WhatsApp: (11) 99209-5721
+Site: https://safira-digital.vercel.app/
+ 
+----------------------------------------------------------------
+2. SERVIÇOS OFERECIDOS
+----------------------------------------------------------------
+ 
+A Safira Digital oferece os seguintes serviços:
+ 
+2.1. FERRAMENTA DE ANÁLISE ATS
+Ferramenta digital que analisa currículos e verifica sua
+compatibilidade com sistemas de triagem automatizada (ATS),
+com base em inteligência artificial. O acesso é mediante
+cadastro e assinatura via Mercado Pago.
+ 
+2.2. CONSULTORIA EMPRESARIAL E DE CARREIRA
+Serviços de consultoria para pequenas e médias empresas (PMEs)
+e profissionais em busca de recolocação, realizados de forma
+remota via WhatsApp, videochamada ou e-mail, e presencialmente
+em Itaquaquecetuba/SP e região.
+ 
+2.3. DESENVOLVIMENTO WEB
+Criação de sites institucionais, landing pages e soluções
+digitais personalizadas. Condições específicas de cada projeto
+são formalizadas em contrato individual.
+ 
+2.4. CONTEÚDO EDUCACIONAL
+Cursos e materiais educativos divulgados pelo site e
+hospedados em plataformas externas como Udemy. Cada curso
+possui condições próprias estabelecidas pela plataforma
+hospedeira.
+ 
+----------------------------------------------------------------
+3. CADASTRO E ACESSO
+----------------------------------------------------------------
+ 
+3.1. O acesso à ferramenta ATS requer cadastro via login
+Google e assinatura ativa.
+ 
+3.2. O usuário é responsável pela veracidade das informações
+fornecidas no cadastro.
+ 
+3.3. O compartilhamento de credenciais de acesso é proibido.
+Cada conta é de uso pessoal e intransferível.
+ 
+3.4. A Safira Digital reserva-se o direito de suspender ou
+encerrar contas que violem estes termos.
+ 
+----------------------------------------------------------------
+4. ASSINATURAS E PAGAMENTOS
+----------------------------------------------------------------
+ 
+4.1. Os planos de assinatura da ferramenta ATS são processados
+pela plataforma Mercado Pago, sujeitos às condições e
+disponibilidade desta plataforma.
+ 
+4.2. O valor, periodicidade e condições de cada plano estão
+descritos na página de assinatura no site.
+ 
+4.3. Em caso de inadimplência ou cancelamento, o acesso às
+funcionalidades pagas será suspenso automaticamente.
+ 
+4.4. Reembolsos serão analisados caso a caso, mediante
+solicitação formal por e-mail ou WhatsApp, em conformidade
+com o Código de Defesa do Consumidor (CDC).
+ 
+----------------------------------------------------------------
+5. USO ADEQUADO DOS SERVIÇOS
+----------------------------------------------------------------
+ 
+5.1. Os serviços da Safira Digital destinam-se exclusivamente
+a uso pessoal e profissional lícito.
+ 
+5.2. É expressamente proibido:
+ 
+  — Utilizar a ferramenta ATS para fins fraudulentos
+  — Tentar acessar sistemas ou dados de outros usuários
+  — Realizar engenharia reversa ou copiar os sistemas
+  — Utilizar os serviços para fins ilegais ou que violem
+    direitos de terceiros
+  — Compartilhar credenciais de acesso
+ 
+5.3. O conteúdo inserido pelo usuário (currículos, documentos)
+é de sua exclusiva responsabilidade. A Safira Digital não
+se responsabiliza por conteúdo que viole direitos autorais
+ou legislação vigente.
+ 
+----------------------------------------------------------------
+6. LIMITAÇÃO DE RESPONSABILIDADE
+----------------------------------------------------------------
+ 
+6.1. A ferramenta ATS utiliza inteligência artificial e
+fornece análises de caráter orientativo. Os resultados
+não garantem aprovação em processos seletivos ou contratação.
+ 
+6.2. A Safira Digital não se responsabiliza por:
+ 
+  — Decisões tomadas com base nas análises da ferramenta ATS
+  — Instabilidade ou indisponibilidade de plataformas
+    terceiras (Mercado Pago, Google, Udemy)
+  — Perda de dados causada por falhas de terceiros
+  — Resultados financeiros decorrentes de consultorias
+    ou serviços contratados
+ 
+6.3. A responsabilidade máxima da Safira Digital em qualquer
+situação ficará limitada ao valor pago pelo usuário pelo
+serviço específico que originou a reclamação.
+ 
+----------------------------------------------------------------
+7. PROPRIEDADE INTELECTUAL
+----------------------------------------------------------------
+ 
+7.1. Todo o conteúdo produzido pela Safira Digital, incluindo
+textos, ferramentas, código, design e materiais educativos,
+é protegido por direitos autorais e não pode ser reproduzido,
+distribuído ou comercializado sem autorização prévia e expressa.
+ 
+7.2. Ao utilizar os serviços, o usuário não adquire nenhum
+direito de propriedade intelectual sobre os sistemas ou
+conteúdos da Safira Digital.
+ 
+----------------------------------------------------------------
+8. CANCELAMENTO E ENCERRAMENTO
+----------------------------------------------------------------
+ 
+8.1. O usuário pode cancelar sua assinatura a qualquer momento
+diretamente pela plataforma Mercado Pago ou mediante
+solicitação via e-mail ou WhatsApp.
+ 
+8.2. Após o cancelamento, o acesso às funcionalidades pagas
+será mantido até o fim do período já pago.
+ 
+8.3. A Safira Digital pode encerrar ou suspender o acesso de
+qualquer usuário que viole estes Termos, sem direito a
+reembolso do período não utilizado em caso de violação
+comprovada.
+ 
+----------------------------------------------------------------
+9. ALTERAÇÕES NOS TERMOS
+----------------------------------------------------------------
+ 
+9.1. Estes Termos podem ser atualizados a qualquer momento.
+ 
+9.2. Alterações significativas serão comunicadas com
+antecedência mínima de 10 dias via e-mail cadastrado.
+ 
+9.3. O uso contínuo dos serviços após a vigência das
+alterações implica aceite automático dos novos termos.
+ 
+----------------------------------------------------------------
+10. LEGISLAÇÃO APLICÁVEL E FORO
+----------------------------------------------------------------
+ 
+10.1. Estes Termos são regidos pela legislação brasileira,
+em especial pelo Código de Defesa do Consumidor (Lei nº
+8.078/1990) e pela Lei Geral de Proteção de Dados (Lei nº
+13.709/2018).
+ 
+10.2. Fica eleito o foro da Comarca de Itaquaquecetuba/SP
+para dirimir quaisquer questões oriundas destes Termos,
+salvo disposição legal em contrário.
+ 
+----------------------------------------------------------------
+11. CONTATO
+----------------------------------------------------------------
+ 
+Para dúvidas, solicitações ou reclamações relacionadas a
+estes Termos:
+ 
+E-mail: LeonildoGomes.Dev@outlook.com
+WhatsApp: (11) 99209-5721
+Site: https://safira-digital.vercel.app/
+ 
+================================================================
+FIM DOS TERMOS DE SERVIÇO
+================================================================

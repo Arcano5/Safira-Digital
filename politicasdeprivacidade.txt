@@ -1,0 +1,190 @@
+================================================================
+SAFIRA DIGITAL — POLÍTICA DE PRIVACIDADE
+Última atualização: março de 2026
+================================================================
+ 
+A Safira Digital, MEI registrada em Itaquaquecetuba/SP, CNPJ
+64.845.683/0001-60, leva a privacidade dos seus usuários a sério.
+Este documento explica de forma clara quais dados coletamos, como
+os utilizamos e quais são os seus direitos, em conformidade com a
+Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).
+ 
+----------------------------------------------------------------
+1. QUEM SOMOS
+----------------------------------------------------------------
+ 
+Razão Social: Safira Digital (MEI)
+CNPJ: 64.845.683/0001-60
+Localização: Itaquaquecetuba, SP — Brasil
+E-mail de contato: LeonildoGomes.Dev@outlook.com
+WhatsApp: (11) 99209-5721
+Site: https://safira-digital.vercel.app/
+ 
+----------------------------------------------------------------
+2. QUAIS DADOS COLETAMOS E POR QUÊ
+----------------------------------------------------------------
+ 
+2.1. LOGIN PELO GOOGLE (Ferramenta ATS)
+ 
+Ao acessar a ferramenta de análise de currículos, o usuário
+realiza login via Google. Nesse processo, coletamos e
+armazenamos apenas:
+ 
+  — Nome completo
+  — Endereço de e-mail
+ 
+Esses dados são utilizados exclusivamente para:
+  — Identificar e autenticar o usuário
+  — Liberar o acesso às funcionalidades da ferramenta
+  — Gerenciar assinaturas contratadas via Mercado Pago
+ 
+2.2. DADOS DE PAGAMENTO (Mercado Pago)
+ 
+Os pagamentos e assinaturas são processados pela plataforma
+Mercado Pago. A Safira Digital armazena apenas o e-mail
+associado ao pagamento, exclusivamente para controle de acesso.
+ 
+Dados financeiros como número de cartão, CPF e informações
+bancárias são processados e armazenados exclusivamente pelo
+Mercado Pago, sob a política de privacidade própria desta
+plataforma. A Safira Digital não tem acesso a esses dados.
+ 
+2.3. CURRÍCULOS E DOCUMENTOS (Ferramenta ATS)
+ 
+Os currículos enviados para análise são processados em memória
+durante a execução da análise e descartados imediatamente após.
+Nenhum currículo, documento ou conteúdo enviado é armazenado
+em qualquer banco de dados da Safira Digital.
+ 
+2.4. COOKIES E RASTREAMENTO
+ 
+O site da Safira Digital NÃO utiliza cookies de rastreamento,
+pixels de publicidade, Google Analytics ou qualquer ferramenta
+de monitoramento de comportamento do usuário.
+ 
+2.5. CANAIS DE CONTATO (WhatsApp e E-mail)
+ 
+Ao entrar em contato via WhatsApp ou e-mail, o usuário fornece
+voluntariamente informações como nome, telefone e descrição de
+sua demanda. Esses dados são utilizados exclusivamente para
+responder ao contato e prestar o serviço solicitado.
+ 
+----------------------------------------------------------------
+3. BASE LEGAL PARA O TRATAMENTO DOS DADOS
+----------------------------------------------------------------
+ 
+O tratamento dos dados pessoais pela Safira Digital é realizado
+com base nas seguintes hipóteses previstas na LGPD:
+ 
+  — Execução de contrato: para prestação dos serviços
+    contratados e gerenciamento de assinaturas.
+  — Legítimo interesse: para responder a contatos e
+    solicitações de orçamento.
+  — Consentimento: quando aplicável, mediante aceite explícito
+    dos termos de uso.
+ 
+----------------------------------------------------------------
+4. COMPARTILHAMENTO DE DADOS
+----------------------------------------------------------------
+ 
+A Safira Digital NÃO vende, aluga ou compartilha dados pessoais
+com terceiros para fins comerciais ou publicitários.
+ 
+Os dados poderão ser compartilhados apenas com:
+ 
+  — Mercado Pago: exclusivamente para processamento de
+    pagamentos e gestão de assinaturas.
+  — Google LLC: exclusivamente para autenticação via login
+    Google, conforme a política de privacidade do Google.
+  — Autoridades competentes: quando exigido por lei ou ordem
+    judicial.
+ 
+----------------------------------------------------------------
+5. RETENÇÃO DOS DADOS
+----------------------------------------------------------------
+ 
+  — Nome e e-mail de login: mantidos enquanto a conta do
+    usuário estiver ativa. Excluídos mediante solicitação.
+  — E-mail de pagamento: mantido pelo período necessário para
+    controle de acesso à assinatura contratada.
+  — Currículos e documentos: não são armazenados. Descartados
+    imediatamente após o processamento.
+  — Dados de contato via WhatsApp/e-mail: mantidos pelo período
+    necessário para atendimento da demanda.
+ 
+----------------------------------------------------------------
+6. SEUS DIREITOS COMO TITULAR DE DADOS (LGPD)
+----------------------------------------------------------------
+ 
+Nos termos da LGPD, você tem direito a:
+ 
+  — Confirmar se tratamos seus dados pessoais
+  — Acessar os dados que temos sobre você
+  — Corrigir dados incompletos, inexatos ou desatualizados
+  — Solicitar a exclusão dos seus dados
+  — Revogar o consentimento a qualquer momento
+  — Ser informado sobre com quem compartilhamos seus dados
+ 
+Para exercer qualquer um desses direitos, entre em contato:
+E-mail: LeonildoGomes.Dev@outlook.com
+WhatsApp: (11) 99209-5721
+ 
+Responderemos em até 15 dias úteis.
+ 
+----------------------------------------------------------------
+7. SEGURANÇA DOS DADOS
+----------------------------------------------------------------
+ 
+Adotamos medidas técnicas e organizacionais adequadas para
+proteger os dados pessoais contra acesso não autorizado,
+alteração, divulgação ou destruição, incluindo:
+ 
+  — Autenticação segura via Google
+  — Processamento de currículos exclusivamente em memória,
+    sem persistência
+  — Delegação do processamento financeiro a plataformas
+    certificadas (Mercado Pago)
+ 
+----------------------------------------------------------------
+8. PÚBLICO-ALVO E MENORES DE IDADE
+----------------------------------------------------------------
+ 
+Os serviços da Safira Digital são destinados exclusivamente a
+adultos (maiores de 18 anos) em busca de recolocação
+profissional ou desenvolvimento de carreira. Não coletamos
+intencionalmente dados de menores de idade.
+ 
+----------------------------------------------------------------
+9. CURSOS EM PLATAFORMAS EXTERNAS
+----------------------------------------------------------------
+ 
+A Safira Digital poderá divulgar cursos hospedados em
+plataformas externas como Udemy. Nesses casos, o cadastro,
+pagamento e tratamento de dados do aluno são realizados
+diretamente pela plataforma contratada, sob a política de
+privacidade própria de cada uma. A Safira Digital atua apenas
+como produtora do conteúdo.
+ 
+----------------------------------------------------------------
+10. ALTERAÇÕES NESTA POLÍTICA
+----------------------------------------------------------------
+ 
+Esta Política de Privacidade pode ser atualizada a qualquer
+momento. Alterações significativas serão comunicadas via
+e-mail ou aviso no site. O uso contínuo dos serviços após
+a publicação das alterações implica aceite das novas condições.
+ 
+----------------------------------------------------------------
+11. CONTATO E ENCARREGADO DE DADOS (DPO)
+----------------------------------------------------------------
+ 
+Por se tratar de MEI de pequeno porte, a Safira Digital não
+possui DPO formalmente designado. Para qualquer questão
+relacionada à privacidade de dados, entre em contato:
+ 
+E-mail: LeonildoGomes.Dev@outlook.com
+WhatsApp: (11) 99209-5721
+ 
+================================================================
+FIM DA POLÍTICA DE PRIVACIDADE
+================================================================
