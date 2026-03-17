@@ -1,4 +1,3 @@
-# ia_services.py
 import streamlit as st
 import re
 import time
@@ -70,9 +69,9 @@ def extrair_texto_arquivo(arquivo):
         st.error("❌ Formato não suportado. Use PDF ou DOCX.")
         return ""
 
-# === FUNÇÃO DE FALLBACK PARA MATCH (NOVA VERSÃO) ===
+# === FUNÇÃO DE FALLBACK PARA MATCH (APENAS NUMÉRICO) ===
 def calcular_match_fallback(vaga, curriculo):
-    """Versão melhorada para quando o Gemini não retorna o número"""
+    """Fallback apenas numérico quando o Gemini não retorna o match"""
     vaga_lower = vaga.lower()
     curriculo_lower = curriculo.lower()
     
@@ -110,19 +109,41 @@ def calcular_match_fallback(vaga, curriculo):
         return max(0, min(100, percentual))
     return 30  # fallback seguro
 
-# === ANÁLISE DE FORMATAÇÃO ATS ===
+# === ANÁLISE DE FORMATAÇÃO ATS (REFINADA) ===
 def analisar_formatacao_ats(texto_curriculo):
     problemas = []
     acertos = []
     
-    # 1. DETECTAR CAPSLOCK
-    palavras = texto_curriculo.split()
-    caps_words = [p for p in palavras if p.isupper() and len(p) > 3]
-    if caps_words:
-        problemas.append(f"❌ Evite usar CAPSLOCK em palavras: {', '.join(caps_words[:3])}")
+    # Lista de títulos de seção comuns para ignorar na detecção de CAPSLOCK
+    secoes_comuns = [
+        'OBJETIVO', 'PROFISSIONAL', 'RESUMO', 'FORMAÇÃO', 'EXPERIÊNCIA', 
+        'HABILIDADES', 'IDIOMAS', 'COMPETÊNCIAS', 'CURSOS', 'CERTIFICAÇÕES',
+        'PROJETOS', 'PUBLICAÇÕES', 'PRÊMIOS', 'VOLUNTÁRIO', 'CONTATO',
+        'EDUCAÇÃO', 'FORMAÇÃO ACADÊMICA', 'HISTÓRICO PROFISSIONAL',
+        'QUALIFICAÇÕES', 'PERFIL', 'SOBRE', 'DADOS PESSOAIS'
+    ]
+    
+    # 1. DETECTAR CAPSLOCK (ignorar títulos de seção)
+    linhas = texto_curriculo.split('\n')
+    caps_problematicos = []
+    
+    for linha in linhas:
+        palavras = linha.split()
+        for palavra in palavras:
+            # Ignorar palavras curtas, números ou títulos conhecidos
+            if len(palavra) <= 3:
+                continue
+            if palavra in secoes_comuns:
+                continue
+            if palavra.isupper() and len(palavra) > 3:
+                caps_problematicos.append(palavra)
+    
+    if caps_problematicos:
+        # Limitar a 3 exemplos
+        exemplos = caps_problematicos[:3]
+        problemas.append(f"❌ Evite usar CAPSLOCK em palavras do corpo do texto: {', '.join(exemplos)}")
     
     # 2. DETECTAR COLUNAS/TABELAS
-    linhas = texto_curriculo.split('\n')
     colunas_detectadas = 0
     for linha in linhas[:20]:
         if '\t' in linha or '  ' in linha:
@@ -133,7 +154,7 @@ def analisar_formatacao_ats(texto_curriculo):
                     problemas.append("❌ Formatação em colunas/tabela - ATS pode não ler corretamente")
                     break
     
-    # 3. DETECTAR ESTRUTURA FORA DE ORDEM
+    # 3. DETECTAR ESTRUTURA FORA DE ORDEM (mais flexível)
     secoes_esperadas = ['resumo|objetivo', 'experiência', 'formação', 'habilidades']
     posicoes = {}
     for i, linha in enumerate(linhas[:30]):
@@ -142,8 +163,9 @@ def analisar_formatacao_ats(texto_curriculo):
             if re.search(secao, linha_lower) and secao not in posicoes:
                 posicoes[secao] = i
     
-    if posicoes.get('experiência', 999) > posicoes.get('formação', 0):
-        problemas.append("⚠️ Experiência profissional deve vir antes da formação acadêmica")
+    # Apenas alertar se a diferença for muito grande (ex: formação muito antes da experiência)
+    if posicoes.get('experiência', 999) < posicoes.get('formação', 0):
+        problemas.append("⚠️ Formação acadêmica aparece antes da experiência profissional - não é um erro, mas o inverso é mais comum")
     
     # 4. DETECTAR DATAS COMPLETAS
     datas_completas = re.findall(r'\d{2}/\d{2}/\d{4}', texto_curriculo)
@@ -176,7 +198,7 @@ def analisar_formatacao_ats(texto_curriculo):
         "score_formatacao": score,
         "problemas": problemas[:7],
         "acertos": acertos[:3],
-        "dica_rapida": "Use formatação simples, sem colunas/tabelas, com seções bem definidas na ordem correta."
+        "dica_rapida": "Use formatação simples, sem colunas/tabelas, com seções bem definidas."
     }
 
 # === ANÁLISE COMPARATIVA COM IA ===
@@ -194,31 +216,22 @@ Compare VAGA e CURRÍCULO.
 Responda OBRIGATORIAMENTE usando exatamente este formato:
 
 <<<HARD_SKILLS>>>
-Lista separada por vírgula
+Lista separada por vírgula com as hard skills do candidato que são relevantes para a vaga
 
 <<<SOFT_SKILLS>>>
-Lista separada por vírgula
+Lista separada por vírgula com as soft skills do candidato que são relevantes para a vaga
 
 <<<FALTANTES>>>
-Lista separada por vírgula ou "Nenhuma"
+Lista separada por vírgula com as habilidades (técnicas ou comportamentais) que a vaga pede mas o currículo NÃO possui. Se todas estiverem presentes, escreva "Nenhuma".
 
 <<<EXCEDENTES>>>
-Lista separada por vírgula ou "Nenhuma"
+Lista separada por vírgula com informações do currículo que NÃO são relevantes para a vaga e poderiam ser removidas para tornar o currículo mais focado. Se nada for excedente, escreva "Nenhuma".
 
 <<<MATCH>>>
 Apenas um número inteiro de 0 a 100
 
 <<<CARGO>>>
 Cargo mais compatível
-
-<<<PLANO>>>
-Dia 1: ...
-Dia 2: ...
-Dia 3: ...
-Dia 4: ...
-Dia 5: ...
-Dia 6: ...
-Dia 7: ...
 
 NÃO escreva nada fora desses blocos.
 
@@ -229,7 +242,7 @@ CURRÍCULO:
 {curriculo[:4000]}
 """
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={gemini_api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={gemini_api_key}"
 
     headers = {'Content-Type': 'application/json'}
 
@@ -239,7 +252,7 @@ CURRÍCULO:
         }],
         "generationConfig": {
             "temperature": 0.1,
-            "maxOutputTokens": 2048,
+            "maxOutputTokens": 1024,
         }
     }
 
@@ -267,7 +280,6 @@ CURRÍCULO:
                 excedentes = extrair_bloco(texto_resposta, r'<<<EXCEDENTES>>>')
                 match_bloco = extrair_bloco(texto_resposta, r'<<<MATCH>>>')
                 cargo = extrair_bloco(texto_resposta, r'<<<CARGO>>>')
-                plano = extrair_bloco(texto_resposta, r'<<<PLANO>>>')
 
                 # Extração robusta do número
                 numeros = re.findall(r'\d+', match_bloco)
@@ -275,7 +287,7 @@ CURRÍCULO:
                     match_num = int(numeros[0])
                     match_num = max(0, min(100, match_num))
                 else:
-                    # Usando a nova função de fallback
+                    # Usando a função de fallback apenas para o número
                     match_num = calcular_match_fallback(vaga, curriculo)
 
                 status.update(label="✅ Análise concluída!", state="complete")
@@ -284,28 +296,28 @@ CURRÍCULO:
                     "hard_skills": hard or "Não identificado",
                     "soft_skills": soft or "Não identificado",
                     "habilidades_faltantes": faltantes or "Não identificado",
+                    "excedentes": excedentes or "Nenhuma",
                     "percentual_match": match_num,
-                    "cargo_alvo": cargo or "Profissional da área",
-                    "plano_7_dias": plano or "Plano não gerado"
+                    "cargo_alvo": cargo or "Profissional da área"
                 }
 
         except Exception as e:
             st.warning(f"⚠️ Erro: {str(e)[:100]}")
             if tentativa == max_retries - 1:
                 return {
-                    "hard_skills": "Erro",
-                    "soft_skills": "Erro",
-                    "habilidades_faltantes": "Erro na comunicação",
+                    "hard_skills": "Erro na comunicação",
+                    "soft_skills": "Erro na comunicação",
+                    "habilidades_faltantes": "Não foi possível identificar",
+                    "excedentes": "Não foi possível identificar",
                     "percentual_match": calcular_match_fallback(vaga, curriculo),
-                    "cargo_alvo": "Erro",
-                    "plano_7_dias": "Tente novamente"
+                    "cargo_alvo": "Erro"
                 }
 
     return {
         "hard_skills": "Erro",
         "soft_skills": "Erro",
         "habilidades_faltantes": "Erro",
+        "excedentes": "Erro",
         "percentual_match": calcular_match_fallback(vaga, curriculo),
-        "cargo_alvo": "Erro",
-        "plano_7_dias": "Tente novamente"
+        "cargo_alvo": "Erro"
     }
